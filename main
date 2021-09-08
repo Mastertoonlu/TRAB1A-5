@@ -1,0 +1,475 @@
+#include <stdio.h>
+#include<locale.h>
+
+int checagem3(int vlr){
+  int ok2 = 1;
+    if(vlr>100){ok2=0;}
+  if(vlr<0){ok2=0;}
+  //chegar se os valores inseridos de tudos poderão ser implementados
+  return ok2;
+}
+int checagem2(int vlr)
+{
+  int ok1 = 1;
+  if(vlr>20){ok1=0;}
+  if(vlr<0){ok1=0;}
+//checar se os valores inseridos poderão ser implementados no lote
+return ok1;
+}
+
+
+int checagem(int v1,int v2,int v3,int v4,int v5)
+{
+  int ok = 1;
+if(v1>100 || v1<0){ok=0;}
+if(v2>20 || v3>20 || v4>20 || v5>20){ok=0;}
+if(v2<0 || v3<0 || v4<0 || v5<0){ok=0;}
+//checar se todos os valores inseridos no lote estão dentro dos parâmetros
+return ok;
+}
+
+
+
+int main(void) {
+  setlocale(LC_ALL,"Portuguese");
+int mod,cont,check2,acumulador,acu=0,x,i2,cont2;
+int l1=0,l2=0,l3=0,l4=0,l5=0;
+
+struct deposito
+{
+int tubos;
+int lcim ;
+int lare;
+int lcal;
+int lsai;
+};
+struct deposito lote[20];
+
+
+
+
+printf("ENTRE COM OS DADOS DOS LOTES01 ATÉ O LOTE20.\n\n");
+
+int i, check;
+for(i = 0;i <20;i++){//PROFESSORA, não achei jeito mais fácil de inserir dados. Recomendo iniciar com todos os dado de entrada como 0
+  inicio:
+printf("\nNÚMERO DE TUBOS DO %iº LOTE ................: ",i+1);
+scanf("%i", &lote[i].tubos);
+
+printf("\nNÚMERO DE CIMENTO DO %iº LOTE ..............: ",i+1);
+scanf("%i", &lote[i].lcim);
+
+printf("\nNÚMERO DE AREIA DO %iº LOTE ................: ",i+1);
+scanf("%i", &lote[i].lare);
+
+printf("\nNÚMERO DE CAL DO %iº LOTE ..................: ",i+1);
+scanf("%i", &lote[i].lcal);
+
+printf("\nNÚMERO DE SAIBRO DO %iº LOTE ...............: ",i+1);
+scanf("%i", &lote[i].lsai);
+
+check = checagem(lote[i].tubos, lote[i].lcim, lote[i].lare, lote[i].lcal, lote[i].lsai);
+if(check==0){
+  printf("\n\nVOCÊ DIGITOU ALGUM NÚMERO ERRADO! POR VAFOR,DIGITE OS DADOS DESSE LOTE NOVAMENTE\n");
+  goto inicio;
+}
+}
+
+
+
+inicio2 :
+printf("\n\nESCOLHA APENAS UMA OPIÇAO POR VEZ.\n");
+
+printf(" 1 : ALTERAR A QUANTIDADE DE MATERIAL DE UM LOTE ESPECÍFICO.\n 2 :  SABER QUANTIDADE TOTAL DE UM MATERIAL ESPECÍFICO NO DEPÓSITO.\n 3 : STATUS DETALHADO DO DEPOISITO.\n 4 : FIM.\n ...: ");
+int valor;
+
+scanf("%i",&valor);
+switch(valor){
+  
+  
+   case 1 :
+   printf("\n\nO QUE DESEJA?\n 1 : ADICIONAR.\n 2 : RETIRAR.\n ...: ");
+  
+   scanf("%i",&valor);
+
+  
+   switch(valor){
+     case 1 :
+     printf("\n\nDIGITE O NÚMERO DO MATERIAL.\n 1 : CIMENTO\n 2 : AREIA\n 3 : CAL\n 4 : SAIBRO\n 5 : TUBOS\n ...: ");
+     
+     scanf("%i",&valor);
+     switch(valor){//esse switch se repeta praticamente em todos os casos de soma, ou seja,apenas mudo o endereço a sem alocado
+       case 1 :
+       printf("\n\nDIGITE A QUANTIDADE ...: ");  scanf("%i",&mod);  printf("\n\nPODERÁ(ÃO) SER(EM) COLOCADO(S) NO(S)LOTE(S) :\n");
+       for(cont=0;cont<20;cont++){
+         acumulador = lote[cont].lcim + mod;
+         check2 = checagem2(acumulador);
+         if(check2 == 1){printf("LOTE %i\n",cont+1);}
+        }
+        
+        
+         printf("\nSE HOUVER,DIGITE O NÚMERO DO LOTE O QUAL DESEJA AUMENTAR(EX: 13)\n");
+         scanf("%i",&x);
+         lote[x-1].lcim += mod;
+         check2 = checagem2(lote[x-1].lcim);
+         if(check2 == 1){printf("OPERAÇÃO REALIZADA COM SUCESSO");
+         goto inicio2;}
+         else if(check2 == 0 || x<1 || x>20){lote[x-1].lcim -= mod;
+         printf("Valor(es) invalido(s)! TENTE NOVAMENTE.");
+         goto inicio2;}
+
+
+       
+       
+       break;
+
+
+
+
+       case 2 :
+       printf("\n\nDIGITE A QUANTIDADE ...: ");  scanf("%i",&mod);  printf("\n\nPODERÁ(ÃO) SER(EM) COLOCADO(S) NO(S)LOTE(S) :\n");
+       for(cont=0;cont<20;cont++){
+         acumulador = lote[cont].lare + mod;
+         check2 = checagem2(acumulador);
+         if(check2 == 1){printf("LOTE %i\n",cont+1);}
+        }
+        
+        
+         printf("\nSE HOUVER,DIGITE O NÚMERO DO LOTE O QUAL DESEJA AUMENTAR(EX: 13)\n");
+         scanf("%i",&x);
+         lote[x-1].lare += mod;
+         check2 = checagem2(lote[x-1].lare);
+         if(check2 == 1){printf("OPERAÇÃO REALIZADA COM SUCESSO");
+         goto inicio2;}
+         else if(check2 == 0 || x<1 || x>20){lote[x-1].lare -= mod;
+         printf("Valor(es) invalido(s)! TENTE NOVAMENTE.");
+         goto inicio2;}
+       break;
+
+
+
+
+       case 3 :
+       printf("\n\nDIGITE A QUANTIDADE ...: ");  scanf("%i",&mod);  printf("\n\nPODERÁ(ÃO) SER(EM) COLOCADO(S) NO(S)LOTE(S) :\n");
+       for(cont=0;cont<20;cont++){
+         acumulador = lote[cont].lcal + mod;
+         check2 = checagem2(acumulador);
+         if(check2 == 1){printf("LOTE %i\n",cont+1);}
+        }
+        
+        
+         printf("\nSE HOUVER,DIGITE O NÚMERO DO LOTE O QUAL DESEJA AUMENTAR(EX: 13)\n");
+         scanf("%i",&x);
+         lote[x-1].lcal += mod;
+         check2 = checagem2(lote[x-1].lcal);
+         if(check2 == 1){printf("OPERAÇÃO REALIZADA COM SUCESSO");
+         goto inicio2;}
+         else if(check2 == 0 || x<1 || x>20){lote[x-1].lcal -= mod;
+         printf("Valor(es) invalido(s)! TENTE NOVAMENTE.");
+         goto inicio2;}
+       break;
+
+
+
+
+       case 4 :
+       printf("\n\nDIGITE A QUANTIDADE ...: ");  scanf("%i",&mod);  printf("\n\nPODERÁ(ÃO) SER(EM) COLOCADO(S) NO(S)LOTE(S) :\n");
+       for(cont=0;cont<20;cont++){
+         acumulador = lote[cont].lsai + mod;
+         check2 = checagem2(acumulador);
+         if(check2 == 1){printf("LOTE %i\n",cont+1);}
+        }
+        
+        
+         printf("\nSE HOUVER,DIGITE O NÚMERO DO LOTE O QUAL DESEJA AUMENTAR(EX: 13)\n");
+         scanf("%i",&x);
+         lote[x-1].lsai += mod;
+         check2 = checagem2(lote[x-1].lsai);
+         if(check2 == 1){printf("OPERAÇÃO REALIZADA COM SUCESSO");
+         goto inicio2;}
+         else if(check2 == 0 || x<1 || x>20){lote[x-1].lsai -= mod;
+         printf("Valor(es) invalido(s)! TENTE NOVAMENTE.");
+         goto inicio2;}
+         break;
+
+
+
+        case 5 :
+        printf("\n\nDIGITE A QUANTIDADE ...: ");  scanf("%i",&mod);  printf("\n\nPODERÁ(ÃO) SER(EM) COLOCADO(S) NO(S)LOTE(S) :\n");
+        for(cont=0;cont<20;cont++){
+          acumulador = lote[cont].tubos + mod;
+          check2 = checagem3(acumulador);
+          if(check2 == 1){printf("LOTE %i\n",cont+1);}
+        }
+        
+        
+         printf("\nSE HOUVER,DIGITE O NÚMERO DO LOTE O QUAL DESEJA AUMENTAR(EX: 13)\n");
+         scanf("%i",&x);
+         lote[x-1].tubos += mod;
+         check2 = checagem3(lote[x-1].tubos);
+         if(check2 == 1){printf("OPERAÇÃO REALIZADA COM SUCESSO");
+         goto inicio2;}
+         else if(check2 == 0 || x<1 || x>100){lote[x-1].tubos -= mod;
+         printf("Valor(es) invalido(s)! TENTE NOVAMENTE.");
+         goto inicio2;}
+         break;
+
+
+
+         default :
+         printf ("Valor invalido!\n");
+         goto inicio2;
+       
+      }
+    
+
+    break;
+    
+    
+   case 2 :
+   printf("\n\nDIGITE O NÚMERO DO MATERIAL.\n 1 : CIMENTO\n 2 : AREIA\n 3 : CAL\n 4 : SAIBRO\n 5 : TUBOS\n ...: ");
+     
+     scanf("%i",&valor);
+     switch(valor){//esse switch se repeta praticamente em todos os casos de soma, ou seja,apenas mudo o endereço a sem alocado
+       case 1 :
+       printf("\n\nDIGITE A QUANTIDADE ...: ");  scanf("%i",&mod);  printf("\n\nPODERÁ(ÃO) SER(EM) COLOCADO(S) NO(S)LOTE(S) :\n");
+       for(cont=0;cont<20;cont++){
+         acumulador = lote[cont].lcim - mod;
+         check2 = checagem2(acumulador);
+         if(check2 == 1){printf("LOTE %i\n",cont+1);}
+        }
+        
+        
+         printf("\nSE HOUVER,DIGITE O NÚMERO DO LOTE O QUAL DESEJA RETIRAR(EX: 13)\n");
+         scanf("%i",&x);
+         lote[x-1].lcim -= mod;
+         check2 = checagem2(lote[x-1].lcim);
+         if(check2 == 1){printf("OPERAÇÃO REALIZADA COM SUCESSO");
+         goto inicio2;}
+         else if(check2 == 0 || x<1 || x>20){lote[x-1].lcim += mod;
+         printf("Valor(es) invalido(s)! TENTE NOVAMENTE.");
+         goto inicio2;}
+
+
+       
+       
+       break;
+
+
+
+
+       case 2 :
+       printf("\n\nDIGITE A QUANTIDADE ...: ");  scanf("%i",&mod);  printf("\n\nPODERÁ(ÃO) SER(EM) COLOCADO(S) NO(S)LOTE(S) :\n");
+       for(cont=0;cont<20;cont++){
+         acumulador = lote[cont].lare - mod;
+         check2 = checagem2(acumulador);
+         if(check2 == 1){printf("LOTE %i\n",cont+1);}
+        }
+        
+        
+         printf("\nSE HOUVER,DIGITE O NÚMERO DO LOTE O QUAL DESEJA RETIRAR(EX: 13)\n");
+         scanf("%i",&x);
+         lote[x-1].lare -= mod;
+         check2 = checagem2(lote[x-1].lare);
+         if(check2 == 1){printf("OPERAÇÃO REALIZADA COM SUCESSO");
+         goto inicio2;}
+         else if(check2 == 0 || x<1 || x>20){lote[x-1].lare += mod;
+         printf("Valor(es) invalido(s)! TENTE NOVAMENTE.");
+         goto inicio2;}
+       break;
+
+
+
+
+       case 3 :
+       printf("\n\nDIGITE A QUANTIDADE ...: ");  scanf("%i",&mod);  printf("\n\nPODERÁ(ÃO) SER(EM) COLOCADO(S) NO(S)LOTE(S) :\n");
+       for(cont=0;cont<20;cont++){
+         acumulador = lote[cont].lcal - mod;
+         check2 = checagem2(acumulador);
+         if(check2 == 1){printf("LOTE %i\n",cont+1);}
+        }
+        
+        
+         printf("\nSE HOUVER,DIGITE O NÚMERO DO LOTE O QUAL DESEJA RETIRAR(EX: 13)\n");
+         scanf("%i",&x);
+         lote[x-1].lcal -= mod;
+         check2 = checagem2(lote[x-1].lcal);
+         if(check2 == 1){printf("OPERAÇÃO REALIZADA COM SUCESSO");
+         goto inicio2;}
+         else if(check2 == 0 || x<1 || x>20){lote[x-1].lcal += mod;
+         printf("Valor(es) invalido(s)! TENTE NOVAMENTE.");
+         goto inicio2;}
+       break;
+
+
+
+
+       case 4 :
+       printf("\n\nDIGITE A QUANTIDADE ...: ");  scanf("%i",&mod);  printf("\n\nPODERÁ(ÃO) SER(EM) COLOCADO(S) NO(S)LOTE(S) :\n");
+       for(cont=0;cont<20;cont++){
+         acumulador = lote[cont].lsai - mod;
+         check2 = checagem2(acumulador);
+         if(check2 == 1){printf("LOTE %i\n",cont+1);}
+        }
+        
+        
+         printf("\nSE HOUVER,DIGITE O NÚMERO DO LOTE O QUAL DESEJA RETIRAR(EX: 13)\n");
+         scanf("%i",&x);
+         lote[x-1].lsai -= mod;
+         check2 = checagem2(lote[x-1].lsai);
+         if(check2 == 1){printf("OPERAÇÃO REALIZADA COM SUCESSO");
+         goto inicio2;}
+         else if(check2 == 0 || x<1 || x>20){lote[x-1].lsai += mod;
+         printf("Valor(es) invalido(s)! TENTE NOVAMENTE.");
+         goto inicio2;}
+         break;
+
+
+
+        case 5 :
+        printf("\n\nDIGITE A QUANTIDADE ...: ");  scanf("%i",&mod);  printf("\n\nPODERÁ(ÃO) SER(EM) COLOCADO(S) NO(S)LOTE(S) :\n");
+        for(cont=0;cont<20;cont++){
+          acumulador = lote[cont].tubos - mod;
+          check2 = checagem3(acumulador);
+          if(check2 == 1){printf("LOTE %i\n",cont+1);}
+        }
+        
+        
+         printf("\nSE HOUVER,DIGITE O NÚMERO DO LOTE O QUAL DESEJA RETIRAR(EX: 13)\n");
+         scanf("%i",&x);
+         lote[x-1].tubos -= mod;
+         check2 = checagem3(lote[x-1].tubos);
+         if(check2 == 1){printf("OPERAÇÃO REALIZADA COM SUCESSO");
+         goto inicio2;}
+         else if(check2 == 0 || x<1 || x>100){lote[x-1].tubos += mod;
+         printf("Valor(es) invalido(s)! TENTE NOVAMENTE.");
+         goto inicio2;}
+         break;
+
+
+
+         default :
+         printf ("Valor invalido!\n");
+         goto inicio2;
+       
+      }
+    
+
+    
+   break;
+    }
+  break;
+  
+  
+  
+  case 2 :
+  printf("QUAL MATERIAL DESEJA SABER?\n 1 : CIMENTO\n 2 : AREIA\n 3 : CAL\n 4 : SAIBRO\n 5 : TUBOS\n ...: ");
+  scanf("%i",&valor);
+  
+  switch(valor){
+    case 1 :
+    for(i2=0;i2<20;i2++){
+      acu += lote[i2].lcim;
+    }
+    
+    printf("O DEPOSITO POSSUI %i DE CIMENTO.PORTANTO :\n",acu);
+    acu = 0;
+    for(i=0;i<20;i++){
+    printf("%i no lote%i\n",lote[i].lcim,i+1);
+    }
+    goto inicio2;
+    break;
+
+    case 2 :
+    for(i2=0;i2<20;i2++){
+      acu += lote[i2].lare;
+    }
+    
+    printf("O DEPOSITO POSSUI %i DE AREIA.PORTANTO :\n",acu);
+    acu = 0;
+    for(i=0;i<20;i++){
+    printf("%i no lote%i\n",lote[i].lare,i+1);
+    }
+    goto inicio2;
+    break;
+
+    case 3 :
+    for(i2=0;i2<20;i2++){
+      acu += lote[i2].lcal;
+    }
+    
+    printf("O DEPOSITO POSSUI %i DE CAL.PORTANTO :\n",acu);
+    acu = 0;
+    
+    for(i=0;i<20;i++){
+    printf("%i no lote%i\n",lote[i].lcal,i+1);
+    }
+    goto inicio2;
+    break;
+
+    case 4 :
+    for(i2=0;i2<20;i2++){
+      acu += lote[i2].lsai;
+    }
+    
+    printf("O DEPOSITO POSSUI %i DE SAIBRO.PORTANTO :\n",acu);
+    acu = 0;
+    for(i=0;i<20;i++){
+    printf("%i no lote%i\n",lote[i].lsai,i+1);
+    }
+    goto inicio2;
+    break;
+
+    case 5 :
+    for(i2=0;i2<20;i2++){
+      acu += lote[i2].tubos;
+    }
+    
+    printf("O DEPOSITO POSSUI %i DE TUBOS.PORTANTO :\n",acu);
+    acu = 0;
+    for(i=0;i<20;i++){
+    printf("%i no lote%i\n",lote[i].tubos,i+1);
+    }
+    goto inicio2;
+    break;
+
+    default :
+         printf ("Valor invalido!\n");
+         goto inicio2;
+  }
+  
+  
+  break;
+  case 3 :
+  for(i2=0;i2<20;i2++){
+    l1 += lote[i2].tubos;
+    l2 += lote[i2].lcim;
+    l3 += lote[i2].lare;
+    l4 += lote[i2].lcal;
+    l5 += lote[i2].lsai;
+  }
+  
+  printf ("\n\nNO DEPOSITO EXISTEM:\n %i DE TUBOS\n %i DE CIMENTO\n %i DE AREIA\n %i DE CAL\n %i DE SAIBRO\n",l1,l2,l3,l4,l5);
+  l1=0,l2=0,l3=0,l4=0,l5=0;//LIMPANDO A MEMÓRIA
+  printf("\nPORTANTO :\n");
+    for(i=0;i<20;i++){
+    printf("%i no lote%i de Tubos\n",lote[i].tubos,i+1);
+    printf("%i no lote%i de Cimento\n",lote[i].lcim,i+1);
+    printf("%i no lote%i de Areia\n",lote[i].lare,i+1);
+    printf("%i no lote%i de Cal\n",lote[i].lcal,i+1);
+    printf("%i no lote%i de Saibro\n",lote[i].lsai,i+1);
+    }
+    
+  
+   goto inicio2;
+  break;
+  case 4 :break;//fim
+   
+   default :
+   printf ("Valor invalido!\n");
+   goto inicio2;
+}
+
+
+  return 0;
+}
